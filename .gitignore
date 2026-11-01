@@ -1,0 +1,43 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.key
+secret.key
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+.vite/
+coverage/
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+# Local databases and user data
+*.db
+*.sqlite
+*.sqlite3
+data/
+uploads/
+temp/
+tmp/
+
+# Private images and generated files
+debug_face.jpg
+*.log
+
+# Model checkpoints (large files - handle separately)
+backend/models/*.pth
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

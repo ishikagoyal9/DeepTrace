@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-multipart
+numpy
+opencv-python
+torch
+torchvision
+timm
+mtcnn
+tensorflow
+reportlab
+librosa
+imageio-ffmpeg
+protobuf>=4.25
