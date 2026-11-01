@@ -3,8 +3,8 @@ uvicorn==0.34.0
 python-multipart==0.0.20
 numpy==1.26.4
 opencv-python==4.10.0.84
-torch==2.5.1
-torchvision==0.20.1
+torch==2.5.1+cpu
+torchvision==0.20.1+cpu
 timm==1.0.12
 mtcnn==1.0.0
 tensorflow==2.18.0
