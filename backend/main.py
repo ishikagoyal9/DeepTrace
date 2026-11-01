@@ -20,6 +20,7 @@ from utils.gradcam import GradCAM
 from utils.report_generator import generate_pdf_report, HindiFontUnavailable
 from utils.audio_analyzer import (load_audio_once, analyze_audio_consistency,
                                   analyze_lip_sync, analyze_voice_clone)
+from model_artifact import ensure_production_checkpoint
 import accounts
 import extras
 
@@ -45,6 +46,7 @@ app.add_middleware(
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(BASE_DIR, 'models', 'best_model.pth')
+ensure_production_checkpoint(model_path)
 feature_extractor = FeatureExtractor(model_path=model_path)
 temporal_analyzer = TemporalAnalyzer(threshold=0.65)
 if temporal_analyzer.lstm_model is None:

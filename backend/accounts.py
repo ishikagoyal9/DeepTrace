@@ -27,7 +27,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException
 from pydantic import BaseModel
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+DATA_DIR = os.path.abspath(os.environ.get("DEEPTRACE_DATA_DIR", os.path.join(BASE_DIR, "data")))
 DB_PATH = os.path.join(DATA_DIR, "deeptrace.db")
 KEY_PATH = os.path.join(DATA_DIR, "secret.key")
 TOKEN_DAYS = 7
@@ -54,11 +54,19 @@ def init_db():
     global _secret
     with _init_lock:
         os.makedirs(DATA_DIR, exist_ok=True)
-        if not os.path.exists(KEY_PATH):
-            with open(KEY_PATH, "wb") as f:
-                f.write(secrets.token_bytes(32))
-        with open(KEY_PATH, "rb") as f:
-            _secret = f.read()
+        configured_secret = os.environ.get("SECRET_KEY")
+        if configured_secret:
+            if len(configured_secret.encode("utf-8")) < 32:
+                raise RuntimeError("SECRET_KEY must be at least 32 bytes long.")
+            _secret = configured_secret.encode("utf-8")
+        elif os.environ.get("DEEPTRACE_ENV", "").strip().lower() in {"prod", "production"}:
+            raise RuntimeError("SECRET_KEY must be configured in production.")
+        else:
+            if not os.path.exists(KEY_PATH):
+                with open(KEY_PATH, "wb") as f:
+                    f.write(secrets.token_bytes(32))
+            with open(KEY_PATH, "rb") as f:
+                _secret = f.read()
         with db() as c:
             c.executescript(
                 """
