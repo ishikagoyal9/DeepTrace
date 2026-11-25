@@ -136,7 +136,7 @@ export default function ResultView({ data, videoUrl }) {
         <Forensics data={data} />
       </section>
 
-      <div className="report-actions"><div><span className="eyebrow">{t("EXPORT THIS READOUT")}</span><p>{t("PDF summary: verdict, scores, flagged intervals, heuristic findings, audio notes and provenance. It excludes the web timeline visualization and heatmap images.")}</p>{pdfError && <p className="field-error" role="alert">{t(pdfError)}</p>}</div><div className="report-action-buttons">{supportedVerdict && data.analysis_id && <Link className="button button-feedback" to={`/feedback/${encodeURIComponent(data.analysis_id)}`}>{t("Ye result galat tha?")} <span>↗</span></Link>}<button type="button" className="button button-ink" onClick={download} disabled={pdfBusy}>{t(pdfBusy ? "Preparing report…" : "Download PDF report")}<span>↗</span></button></div></div>
+      <div className="report-actions"><div><span className="eyebrow">{t("EXPORT THIS READOUT")}</span><p>{t("PDF summary: verdict, scores, flagged intervals, heuristic findings, audio notes and provenance. It excludes the web timeline visualization and heatmap images.")}</p>{pdfError && <p className="field-error" role="alert">{t(pdfError)}</p>}</div><div className="report-action-buttons">{supportedVerdict && data.analysis_id && <Link className="button button-feedback" to={`/feedback/${encodeURIComponent(data.analysis_id)}`}>{t("Was this result incorrect?")} <span>↗</span></Link>}<button type="button" className="button button-ink" onClick={download} disabled={pdfBusy}>{t(pdfBusy ? "Preparing report…" : "Download PDF report")}<span>↗</span></button></div></div>
       <PrivacyBadge />
       <div className="report-endmark">{t("END OF READOUT")} <span>///</span></div>
       </div>
